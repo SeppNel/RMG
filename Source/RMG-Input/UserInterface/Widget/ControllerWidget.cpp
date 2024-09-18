@@ -874,6 +874,7 @@ void ControllerWidget::on_fullMapButton_clicked()
             break;
         }
 
+        // Add delay between buttons to give time for joysticks to go neutral
         this->disableAllChildren();
         QTime dieTime= QTime::currentTime().addMSecs(500);
         while (QTime::currentTime() < dieTime)
