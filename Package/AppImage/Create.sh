@@ -6,7 +6,7 @@ toplvl_dir="$(realpath "$script_dir/../../")"
 bin_dir="$toplvl_dir/Bin/AppImage" # RMG should be installed here
 
 export QMAKE="$(which qmake6)"
-export EXTRA_QT_PLUGINS="imageformats;iconengines;"
+export EXTRA_QT_PLUGINS="imageformats;iconengines;tls;"
 export VERSION="$(git describe --tags --always)"
 export OUTPUT="$bin_dir/../RMG-Portable-Linux64-$VERSION.AppImage"
 export LD_LIBRARY_PATH="$toplvl_dir/Build/AppImage/Source/RMG-Core" # hack
