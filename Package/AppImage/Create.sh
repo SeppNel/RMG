@@ -10,6 +10,7 @@ export EXTRA_QT_PLUGINS="imageformats;iconengines;"
 export VERSION="$(git describe --tags --always)"
 export OUTPUT="$bin_dir/../RMG-Portable-Linux64-$VERSION.AppImage"
 export LD_LIBRARY_PATH="$toplvl_dir/Build/AppImage/Source/RMG-Core" # hack
+export NO_STRIP=true
 
 if [ ! -f "$script_dir/linuxdeploy-x86_64.AppImage" ]
 then
@@ -25,16 +26,10 @@ then
     chmod +x "$script_dir/linuxdeploy-plugin-qt-x86_64.AppImage"
 fi
 
-"$script_dir/linuxdeploy-plugin-qt-x86_64.AppImage" --appimage-extract
-"$script_dir/linuxdeploy-x86_64.AppImage" --appimage-extract
+cp "$toplvl_dir/Package/AppImage/AppRun" "$bin_dir"
 
-# delete appimages
+"$script_dir/linuxdeploy-x86_64.AppImage" --appdir "$bin_dir" --plugin qt --output appimage
+
+
 rm "$script_dir/linuxdeploy-x86_64.AppImage" \
     "$script_dir/linuxdeploy-plugin-qt-x86_64.AppImage"
-
-"$(pwd)/squashfs-root/AppRun" \
-    --plugin=qt \
-    --appdir="$bin_dir" \
-    --custom-apprun="$script_dir/AppRun" \
-    --output=appimage \
-    --desktop-file="$bin_dir/usr/share/applications/com.github.Rosalie241.RMG.desktop"
